@@ -1,5 +1,6 @@
 package tamer.han15;
 
+import com.sun.javafx.scene.control.skin.VirtualFlow;
 import org.apache.commons.math3.linear.RealMatrix;
 import org.apache.commons.math3.linear.RealVector;
 import org.apache.commons.math3.util.FastMath;
@@ -20,6 +21,17 @@ public class Misc {
                 xZ.setEntry(row, col + 1, Z.getEntry(row, col));
             }
         }
+    }
+
+    public static List<Double> createGrid(double minValue, double maxValue, double increment) {
+        List<Double> grid = new ArrayList<>();
+        double value = minValue;
+        grid.add(value);
+        while (value <= maxValue) {
+            value += increment;
+            grid.add(value);
+        }
+        return grid;
     }
 
     public static void dotMultiply(RealMatrix M, RealVector v, RealMatrix Mv) {
@@ -45,7 +57,13 @@ public class Misc {
         }
     }
 
-    public static void print(List<Double[]> list) {
+    public static void printListDouble(List<Double> list) {
+        for (Double element : list) {
+            System.out.println(element);
+        }
+    }
+
+    public static void printListDoubleArray(List<Double[]> list) {
         for (int i = 0; i < list.size(); i++) {
             for (Double datum : list.get(i)) {
                 System.out.print(datum + ", ");

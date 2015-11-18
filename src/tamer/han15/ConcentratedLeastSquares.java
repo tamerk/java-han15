@@ -1,5 +1,6 @@
 package tamer.han15;
 
+import java.util.List;
 import org.apache.commons.math3.linear.Array2DRowRealMatrix;
 import org.apache.commons.math3.linear.QRDecomposition;
 import org.apache.commons.math3.linear.RealMatrix;
@@ -12,14 +13,42 @@ import org.apache.commons.math3.util.FastMath;
  */
 public class ConcentratedLeastSquares extends AbstractLeastSquares {
 
+    private List<Double> grid;
+
     public ConcentratedLeastSquares() {
         super();
         name = "Concentrated Least Squares";
+        grid = Misc.createGrid(10, 70, 0.1);
+    }
+
+    public void gridSearch() {
+        ConcentratedLeastSquares cls = new ConcentratedLeastSquares();
+        cls.setX(x);
+        cls.setY(y);
+        cls.setZ(Z);
+        double minRSS = Double.MAX_VALUE;
+        double t2 = Double.NaN;
+        double t3 = Double.NaN;
+        for (int i = 0; i < grid.size(); i++) {
+            t2 = grid.get(i);
+            cls.setT(t2);
+            cls.estimateCoef();
+            cls.estimateYhat();
+            cls.estimateResid();
+            cls.estimateRSS();
+            double rss2 = cls.getRSS();
+            if (rss2 < minRSS) {
+                minRSS = rss2;
+                t3 = cls.getT();
+            }
+        }
+        t = t3;
+        //System.out.println(t);
     }
 
     @Override
     public void estimateCoef() {
-        t = 43.8;
+        //t = 43.8;
         double diff, negValue, posValue;
         for (int i = 0; i < n; i++) {
             diff = x.getEntry(i) - t;

@@ -1,5 +1,6 @@
 package tamer.han15;
 
+import java.util.List;
 import org.apache.commons.math3.linear.QRDecomposition;
 import org.apache.commons.math3.linear.RealMatrix;
 import org.apache.commons.math3.linear.RealVector;
@@ -18,7 +19,7 @@ public abstract class AbstractLeastSquares {
     protected RealVector coefV;
     protected RealMatrix coefVC;
     protected int df;
-    protected RealVector grid;
+    protected List<Double> grid;
     protected int k;
     protected int n;
     protected String name;
@@ -92,7 +93,7 @@ public abstract class AbstractLeastSquares {
         return df;
     }
 
-    public RealVector getGrid() {
+    public List<Double> getGrid() {
         return grid;
     }
 
@@ -154,8 +155,12 @@ public abstract class AbstractLeastSquares {
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="set methods">
-    public void setGrid(RealVector grid) {
+    public void setGrid(List<Double> grid) {
         this.grid = grid;
+    }
+
+    public void setT(double t) {
+        this.t = t;
     }
 
     public void setX(RealVector x) {
