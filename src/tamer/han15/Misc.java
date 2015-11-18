@@ -3,6 +3,11 @@ package tamer.han15;
 import org.apache.commons.math3.linear.RealMatrix;
 import org.apache.commons.math3.linear.RealVector;
 import org.apache.commons.math3.util.FastMath;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 
 public class Misc {
 
@@ -38,6 +43,39 @@ public class Misc {
             }
             System.out.println("");
         }
+    }
+
+    public static void print(List<Double[]> list) {
+        for (int i = 0; i < list.size(); i++) {
+            for (Double datum : list.get(i)) {
+                System.out.print(datum + ", ");
+            }
+            System.out.println("");
+        }
+    }
+
+    public static List<Double[]> readData(String relativePath) {
+        File file = new File(relativePath);
+        List<Double[]> data = new ArrayList<>();
+        try {
+            Scanner scanner = new Scanner(file);
+            String line = scanner.nextLine(); // first line: header
+            String[] splitLine = line.split(",");
+            int numCols = splitLine.length;
+            while (scanner.hasNext()) {
+                line = scanner.nextLine();
+                splitLine = line.split(",");
+                Double[] numbers = new Double[splitLine.length];
+                int col = -1;
+                for (String number : splitLine) {
+                    double value = Double.parseDouble(number);
+                    numbers[++col] = value;
+                }
+                data.add(numbers);
+            }
+        } catch (FileNotFoundException e) {
+        }
+        return data;
     }
 
     public static void sqrt(RealVector vec, RealVector sqrt) {
