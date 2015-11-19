@@ -1,5 +1,6 @@
 package tamer.han15;
 
+import java.io.IOException;
 import java.util.List;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
@@ -15,6 +16,11 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
+/**
+ * class for Figure 1 in page 2
+ *
+ * @author Tamer Kulaksizoglu
+ */
 public class MainFigure1 extends Application {
 
     private List<Double[]> list;
@@ -24,7 +30,7 @@ public class MainFigure1 extends Application {
     }
 
     @Override
-    public void start(Stage primaryStage) {
+    public void start(Stage primaryStage) throws IOException {
         // read data
         list = Misc.readData("src\\tamer\\han15\\USData");
         // line chart 1
@@ -46,11 +52,11 @@ public class MainFigure1 extends Application {
         xAxis2.setLabel("Year");
         xAxis2.setTickMarkVisible(false);
         NumberAxis yAxis2 = new NumberAxis();
-        yAxis2.setLabel("Debt/Growth");
+        yAxis2.setLabel("Debt/GDP");
         yAxis2.setMinorTickCount(0);
         LineChart lineChart2 = new LineChart(xAxis2, yAxis2);
         lineChart2.setData(getDebtData());
-        lineChart2.setTitle("Debt/Growth by Year");
+        lineChart2.setTitle("Debt/GDP by Year");
         lineChart2.setCreateSymbols(false);
         lineChart2.setHorizontalGridLinesVisible(false);
         lineChart2.setVerticalGridLinesVisible(false);
@@ -59,9 +65,14 @@ public class MainFigure1 extends Application {
         hBox.getChildren().addAll(lineChart1, lineChart2);
         StackPane root = new StackPane();
         root.getChildren().add(hBox);
-        primaryStage.setScene(new Scene(root, 1200, 600));
+        primaryStage.setScene(new Scene(root, 500, 400));
         primaryStage.setTitle("Figure 1");
         primaryStage.show();
+//        // save the file as jpeg (axis labels are missing!!!)
+//        WritableImage snapShot = root.snapshot(null, null);
+//        ImageIO.write(SwingFXUtils.fromFXImage(snapShot, null), "png",
+//                new File("C:\\Tamer\\My_Articles\\Replications\\Hansen_2015\\Figure1.png"));
+
     }
 
     private ObservableList<XYChart.Series<String, Double>> getDebtData() {

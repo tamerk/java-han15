@@ -1,6 +1,5 @@
 package tamer.han15;
 
-import com.sun.javafx.scene.control.skin.VirtualFlow;
 import org.apache.commons.math3.linear.RealMatrix;
 import org.apache.commons.math3.linear.RealVector;
 import org.apache.commons.math3.util.FastMath;
@@ -79,7 +78,6 @@ public class Misc {
             Scanner scanner = new Scanner(file);
             String line = scanner.nextLine(); // first line: header
             String[] splitLine = line.split(",");
-            int numCols = splitLine.length;
             while (scanner.hasNext()) {
                 line = scanner.nextLine();
                 splitLine = line.split(",");
